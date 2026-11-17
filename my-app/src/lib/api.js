@@ -1,11 +1,14 @@
 import { cerrarSesion, leerToken } from '$lib/auth.js';
 
 function obtenerBaseUrl() {
-	if (typeof window !== 'undefined' && window.location?.hostname) {
-		return `http://${window.location.hostname}:8000`;
-	}
-	const envUrl = String(import.meta.env.VITE_API_URL ?? '').trim().replace(/\/+$/, '');
-	return envUrl || 'http://127.0.0.1:8000';
+    const envUrl = String(import.meta.env.VITE_API_URL ?? '').trim().replace(/\/+$/, '');
+    if (envUrl) return envUrl;
+
+    if (typeof window !== 'undefined' && window.location?.hostname) {
+        return `http://${window.location.hostname}:8000`;
+    }
+    return 'http://127.0.0.1:8000';
+
 }
 
 export const API_BASE_URL = obtenerBaseUrl();
