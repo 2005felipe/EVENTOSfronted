@@ -19,7 +19,10 @@
     // Cómo se lee cada dimensión de una fila
     const DIM = {
         fecha: (f) => dia(f) || 'Sin dato',
-        actividad: (f) => f.actividad || 'Sin dato',
+        actividad: (f) => {
+    const t = String(f.actividad || 'Sin dato').trim().toLowerCase();
+    return t.charAt(0).toUpperCase() + t.slice(1);
+},
         mes: (f) => dia(f).slice(0, 7) || 'Sin dato',
         grado: (f) => f.grado || 'Sin dato',
         aut: (f) => f.estado_autorizacion || 'Sin dato',
@@ -62,7 +65,7 @@
 
     // Tarjetas
     $: filas = filtrar(todas, sels, null);
-    $: kActividades = new Set(filas.map((f) => f.actividad)).size;
+    $: kActividades = new Set(filas.map((f) => DIM.actividad(f))).size;
     $: kInscripciones = filas.length;
     $: kAut = filas.length
         ? (filas.filter((f) => norm(f.estado_autorizacion) === 'autorizada').length * 100) / filas.length : 0;
