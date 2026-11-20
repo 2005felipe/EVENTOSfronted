@@ -7,7 +7,7 @@
 	const minutos = Array.from({ length: 60 }, (_, indice) => String(indice).padStart(2, '0'));
 
 	function actualizar(campo, valor) {
-		value = componerHora({ ...partes, [campo]: valor }, value);
+		value = componerHora({ ...partes, [campo]: valor });
 	}
 </script>
 

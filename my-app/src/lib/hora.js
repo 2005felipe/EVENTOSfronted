@@ -11,7 +11,7 @@ export function descomponerHora(valor) {
 	};
 }
 
-export function componerHora(partes, valorAnterior = '') {
+export function componerHora(partes) {
 	if (!partes.hora) return '';
 
 	const hora12 = Number(partes.hora);
@@ -21,8 +21,7 @@ export function componerHora(partes, valorAnterior = '') {
 	}
 
 	const hora24 = (hora12 % 12) + (partes.periodo === 'PM' ? 12 : 0);
-	const segundos = descomponerHora(valorAnterior).segundos;
-	return `${String(hora24).padStart(2, '0')}:${String(minuto).padStart(2, '0')}:${segundos}`;
+	return `${String(hora24).padStart(2, '0')}:${String(minuto).padStart(2, '0')}:00`;
 }
 
 export function formatearHora(valor) {

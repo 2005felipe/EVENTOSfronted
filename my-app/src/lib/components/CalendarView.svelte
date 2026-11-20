@@ -1,9 +1,10 @@
-<script>
+	<script>
 	import { onMount } from 'svelte';
 	import { apiGet, suscribirCambiosApi } from '$lib/api.js';
 	import FeedbackMessage from '$lib/components/FeedbackMessage.svelte';
 	import LoadingState from '$lib/components/LoadingState.svelte';
 	import PageHeading from '$lib/components/PageHeading.svelte';
+	import { formatearHora } from '$lib/hora.js';
 
 	let actividades = $state([]);
 	let cupos = $state([]);
@@ -98,7 +99,7 @@
 						<strong class="calendar-date">{celda.fecha.getDate()}</strong>
 						{#each celda.eventos as actividad (actividad.id)}
 							<article class="calendar-event" class:calendar-event-inactive={!activo(actividad.estado)} class:calendar-event-past={activo(actividad.estado) && String(actividad.fecha).slice(0, 10) < hoyClave}>
-								<strong>{actividad.nombre}</strong><span>{actividad.hora ?? 'Hora por confirmar'} · {actividad.lugar ?? 'Lugar por confirmar'}</span>
+								<strong>{actividad.nombre}</strong><span>{formatearHora(actividad.hora) || 'Hora por confirmar'} · {actividad.lugar ?? 'Lugar por confirmar'}</span>
 								{#if activo(actividad.estado) && String(actividad.fecha).slice(0, 10) >= claveFecha(new Date())}
 									<small>{Math.max(Number(actividad.cupo ?? 0) - inscritos(actividad.id), 0)} cupos disponibles</small>
 								{:else}<small>{activo(actividad.estado) ? 'Actividad finalizada' : 'Actividad inactiva'}</small>{/if}

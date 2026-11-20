@@ -145,7 +145,12 @@
 		-webkit-overflow-scrolling: touch;
 	}
 
-	:global(.modal-dialog-scrollable .modal-content > form > .modal-body) {
-		flex: 1 1 auto;
-	}
+:global(.modal-dialog-scrollable .modal-content > form > .modal-body) {
+    flex: 1 1 auto;
+  }
+
+  :global(body) {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 </style>

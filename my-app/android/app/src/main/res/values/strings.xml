@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Eventos Escolares</string>
+    <string name="title_activity_main">Eventos Escolares</string>
+    <string name="package_name">com.eventos.escolares</string>
+    <string name="custom_url_scheme">com.eventos.escolares</string>
+</resources>

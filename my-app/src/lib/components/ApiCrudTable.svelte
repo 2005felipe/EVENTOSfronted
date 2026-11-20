@@ -10,6 +10,8 @@
     import PageHeading from '$lib/components/PageHeading.svelte';
     import CaregiverStudentAssociationEditor from '$lib/components/CaregiverStudentAssociationEditor.svelte';
     import ActivityAssociationEditor from '$lib/components/ActivityAssociationEditor.svelte';
+	import Time12Input from '$lib/components/Time12Input.svelte';
+	import { formatearHora } from '$lib/hora.js';
 
     let {
         endpoint,
@@ -246,6 +248,7 @@
         }
         const value = row[field.key];
         if (value === null || value === undefined || value === '') return '—';
+		if (field.type === 'time12') return formatearHora(value) || '—';
         if (field.type === 'select') {
             const option = field.options?.find((item) => String(item.value) === String(value));
             if (option) return option.label;
@@ -503,6 +506,8 @@
                                         <option value="">Selecciona una opción</option>
                                         {#each field.options as option (option.value)}<option value={option.value}>{option.label}</option>{/each}
                                     </select>
+				{:else if field.type === 'time12'}
+					<Time12Input bind:value={draft[field.key]} required={field.required} />
                                 {:else if field.type === 'checkbox'}
                                     <div class="form-check form-switch mt-2"><input class="form-check-input" type="checkbox" role="switch" id={`field-${field.key}`} bind:checked={draft[field.key]} disabled={field.disabled === true} /><label class="form-check-label" for={`field-${field.key}`}>{field.checkboxLabel ?? 'Sí'}</label></div>
                                 {:else}
